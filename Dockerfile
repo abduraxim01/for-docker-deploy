@@ -6,6 +6,6 @@ RUN ./gradlew bootJar --no-daemon
 
 FROM openjdk:17-jdk-slim
 EXPOSE 9090
-COPY --from=yarat /build/libs/demo-0.0.1-SNAPSHOT.jar komp-web.jar
+COPY --from=yarat /build/libs/demo-1.jar komp-web.jar
 ENTRYPOINT ["java", "-jar", "komp-web.jar"]
 
