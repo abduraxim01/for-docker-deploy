@@ -1,11 +1,14 @@
-FROM ubuntu:latest AS yarat
-RUN apt-get update
-RUN apt-get install openjdk-17-jdk -y
-COPY . .
-RUN ./gradlew bootJar --no-daemon
+#FROM ubuntu:latest AS build
+#WORKDIR /app
+#COPY . .
+#RUN ./gradlew bootJar --no-daemon
 
-FROM openjdk:17-jdk-slim
-EXPOSE 9090
-COPY --from=yarat /build/libs/demo-1.jar komp-web.jar
-ENTRYPOINT ["java", "-jar", "komp-web.jar"]
+#FROM openjdk:17-jdk-slim
+#EXPOSE 9090
+#COPY --from=build /gradle/wrapper/gradle-wrapper.jar app.jar
+#ENTRYPOINT ["java", "-jar", "app.jar"]
 
+FROM amazoncorretto:17
+WORKDIR /app
+COPY gradle/wrapper/gradle-wrapper.jar /app/yangi-jar-file.jar
+ENTRYPOINT ["java", "-jar","yangi-jar-file.jar"]
